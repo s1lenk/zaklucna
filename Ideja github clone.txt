@@ -1,0 +1,41 @@
+Ideja: github clone
+- account
+- "reposetory" (tiynDB za 3.letnik, 4.letnik SQL)
+- code upload in commit
+ 
+če bo čas in volja in znanje:
+- connect to vs code
+
+
+ACCOUNT / LOGIN / SIGNUP: 
+- flask, mySQL 
+- make cookies for saving passwords and such
+
+REPOSETORY / MAKE NEW / UPLOAD REPOSETORY(perhaps):
+- flask, mySQL - store code in a string
+- comments section
+
+STORE CODE / UPLOAD CODE / DOWNLOAD CODE:
+- sql, shranš v stringu celo kodo
+
+
+
+
+
+DB structure:
+- users:
+	- username:	
+		-password
+		-commented-on-reposetories:
+			-comments
+		-their-reposetories:
+			-reposetory-name
+
+-reposetories:
+	-reposetory-name:
+		-reposetory-owner-name
+		-reposetory-allowed-contributors-names:
+			-contributor-name
+
+
+
