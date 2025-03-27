@@ -22,6 +22,33 @@
         <mxCell id="tKaGJPe-i1fQceckgeRG-12" value="ENTER BUTTON" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="135" y="150" width="125" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-14" value="menu" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="40" width="130" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-15" value="profile pic (acc settings and shit" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;movable=0;resizable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
+          <mxGeometry y="30" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-16" value="user&#39;s reposetories(can be minimized)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;movable=0;resizable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
+          <mxGeometry y="70" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-19" value="" style="rounded=0;whiteSpace=wrap;html=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="160" width="130" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-20" value="reposetory name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="40" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-21" value="make new repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="40" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-23" value="load repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="40" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-24" value="can fetch and load repos. of other users they have permission to" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.01;entryY=0.557;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tKaGJPe-i1fQceckgeRG-23" target="tKaGJPe-i1fQceckgeRG-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
