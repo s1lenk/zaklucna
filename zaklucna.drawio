@@ -1,50 +1,50 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.1.3">
   <diagram name="Page-1" id="7EHDTGMaVwD3-Bb-7en0">
-    <mxGraphModel dx="574" dy="309" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="441" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="tKaGJPe-i1fQceckgeRG-2" value="LOGIN / SIGNUP PAGE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry width="390" height="40" as="geometry" />
+          <mxGeometry width="430" height="40" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry y="40" width="390" height="210" as="geometry" />
+          <mxGeometry y="40" width="430" height="210" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-5" value="USERNAME&lt;br&gt;PASSWORD" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="135" y="60" width="125" height="120" as="geometry" />
+          <mxGeometry x="160" y="70" width="125" height="120" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-10" value="MAIN PAGE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="400" width="430" height="40" as="geometry" />
+          <mxGeometry y="270" width="430" height="40" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-11" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="400" y="40" width="430" height="210" as="geometry" />
+          <mxGeometry y="310" width="430" height="210" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-12" value="ENTER BUTTON" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="135" y="150" width="125" height="30" as="geometry" />
+          <mxGeometry x="160" y="160" width="125" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-14" value="menu" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="1">
-          <mxGeometry x="400" y="40" width="130" height="120" as="geometry" />
+        <mxCell id="tKaGJPe-i1fQceckgeRG-14" value="menu" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
+          <mxGeometry y="310" width="90" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-15" value="profile pic (acc settings and shit" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;movable=0;resizable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
-          <mxGeometry y="30" width="130" height="40" as="geometry" />
+        <mxCell id="tKaGJPe-i1fQceckgeRG-15" value="profile pic (acc settings and shit" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=1;whiteSpace=wrap;html=1;movable=1;resizable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
+          <mxGeometry y="30" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-16" value="user&#39;s reposetories(can be minimized)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;movable=0;resizable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
-          <mxGeometry y="70" width="130" height="50" as="geometry" />
+        <mxCell id="tKaGJPe-i1fQceckgeRG-16" value="user&#39;s reposetories(can be minimized)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=1;whiteSpace=wrap;html=1;movable=1;resizable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
+          <mxGeometry y="70" width="90" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-19" value="" style="rounded=0;whiteSpace=wrap;html=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="1">
-          <mxGeometry x="400" y="160" width="130" height="90" as="geometry" />
+        <mxCell id="tKaGJPe-i1fQceckgeRG-19" value="" style="rounded=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
+          <mxGeometry y="430" width="90" height="90" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-20" value="reposetory name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="530" y="40" width="180" height="30" as="geometry" />
+          <mxGeometry x="90" y="310" width="220" height="30" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-21" value="make new repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="710" y="40" width="60" height="30" as="geometry" />
+          <mxGeometry x="310" y="310" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-23" value="load repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="770" y="40" width="60" height="30" as="geometry" />
+          <mxGeometry x="370" y="310" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-24" value="can fetch and load repos. of other users they have permission to" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="840" y="80" width="120" height="60" as="geometry" />
+          <mxGeometry x="470" y="360" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.01;entryY=0.557;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tKaGJPe-i1fQceckgeRG-23" target="tKaGJPe-i1fQceckgeRG-24">
           <mxGeometry relative="1" as="geometry" />
