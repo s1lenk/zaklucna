@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.1.3">
   <diagram name="Page-1" id="7EHDTGMaVwD3-Bb-7en0">
-    <mxGraphModel dx="819" dy="441" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1401" dy="309" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -23,21 +23,21 @@
           <mxGeometry x="160" y="160" width="125" height="30" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-14" value="menu" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
-          <mxGeometry y="310" width="90" height="120" as="geometry" />
+          <mxGeometry y="310" width="90" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-15" value="profile pic (acc settings and shit" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=1;whiteSpace=wrap;html=1;movable=1;resizable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
+        <mxCell id="tKaGJPe-i1fQceckgeRG-15" value="profile pic" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=1;whiteSpace=wrap;html=1;movable=1;resizable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
           <mxGeometry y="30" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-16" value="user&#39;s reposetories(can be minimized)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=1;whiteSpace=wrap;html=1;movable=1;resizable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
-          <mxGeometry y="70" width="90" height="50" as="geometry" />
+        <mxCell id="tKaGJPe-i1fQceckgeRG-16" value="repositories" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=1;whiteSpace=wrap;html=1;movable=1;resizable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="tKaGJPe-i1fQceckgeRG-14">
+          <mxGeometry y="70" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-19" value="" style="rounded=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
-          <mxGeometry y="430" width="90" height="90" as="geometry" />
+          <mxGeometry y="410" width="90" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-20" value="reposetory name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="tKaGJPe-i1fQceckgeRG-20" value="repository name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="90" y="310" width="220" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tKaGJPe-i1fQceckgeRG-21" value="make new repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="tKaGJPe-i1fQceckgeRG-21" value="+repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="310" y="310" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-23" value="load repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -47,6 +47,26 @@
           <mxGeometry x="470" y="360" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="tKaGJPe-i1fQceckgeRG-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.01;entryY=0.557;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tKaGJPe-i1fQceckgeRG-23" target="tKaGJPe-i1fQceckgeRG-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-26" value="makes a new repos." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.023;entryY=0.31;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tKaGJPe-i1fQceckgeRG-21" target="tKaGJPe-i1fQceckgeRG-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-28" value="leads to account settings page and appearence settings and such,&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;div&gt;*can change password and username*&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-130" y="530" width="120" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tKaGJPe-i1fQceckgeRG-15" target="tKaGJPe-i1fQceckgeRG-28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-30" y="570.8" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-30" value="list of user&#39;s repositories,&lt;div&gt;list can be minimized (extended or contracted)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="555" width="120" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="tKaGJPe-i1fQceckgeRG-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0.083;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tKaGJPe-i1fQceckgeRG-16" target="tKaGJPe-i1fQceckgeRG-30">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
