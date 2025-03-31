@@ -38,4 +38,6 @@ DB structure:
 			-contributor-name
 
 
+working sequence:
+- login system and main page
 
