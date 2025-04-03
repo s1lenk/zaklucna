@@ -20,16 +20,13 @@ STORE CODE / UPLOAD CODE / DOWNLOAD CODE:
 
 
 
-
-
 DB structure:
-- users:
+- user:
 	- username:	
-		-password
-		-commented-on-reposetories:
-			-comments
-		-their-reposetories:
-			-reposetory-name
+	-password:
+-their-reposetories:
+	-reposetory-name:
+		-code and shit:
 
 -reposetories:
 	-reposetory-name:
