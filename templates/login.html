@@ -7,8 +7,78 @@
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <body>
-    <a href="/">MAIN</a>
-</body>
+    <h1>Github but worse</h1>
+
+    <div id="error-message" style="color: red; display: none;"></div>
+
+    <div id="login-container">
+        <h2>Login / Register</h2>
+        <p>If you don't have an account a new one will be created.</p>
+
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+        </div>
+
+        <div>
+            <button onclick="loginOrRegister()">Login / Register</button>
+        </div>
+    </div>
+
 <script>
+    function loginOrRegister() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const errorMessage = document.getElementById('error-message');
+
+        if (username === '' || password === '') {
+            errorMessage.textContent = 'Username and password are mandatory!';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        errorMessage.style.display = 'none';
+
+        $.ajax({
+            url: '/login',
+            type: 'POST',
+            data: {
+                username: username,
+                password: password
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = '/';
+                }else {
+                    errorMessage.textContent = response.error;
+                    errorMessage.style.display = 'block';
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('error details: ', xhr.responseText);
+                errorMessage.textContent = 'Something went wrong. Try again.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    }
+
+    document.getElementById('username').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            loginOrRegister();
+        }
+    });
+
+    document.getElementById('password').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            loginOrRegister();
+        }
+    });
 </script>
+</body>
 </html>

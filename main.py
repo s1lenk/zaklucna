@@ -1,23 +1,61 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, redirect, url_for, session, request, jsonify
 from tinydb import TinyDB, Query
 from datetime import datetime
+import os
 import requests
 
 app = Flask(__name__)
 app.secret_key = "holou_nit_skong_jvelin"
 
 db = TinyDB('user.json')
-user =  db.table('user')
+user = db.table('user')
 repository = db.table('repository')
 User = Query()
 
 
 @app.route("/")
 def mainPage():
-    return render_template("mainPage.html")
+    if 'username' in session:
+        return render_template("mainPage.html")
+    return redirect(url_for('login'))
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'POST':
+        try:
+            username = request.form['username']
+            password = request.form['password']
+
+            user = user.get(user.username == username)
+
+            if user:
+                if user['password'] == password:
+                    session['username'] = username
+
+                    return jsonify({'success': True})
+                else:
+                    return jsonify({'success': True, 'error': 'Napačno geslo'})
+            else:
+                user.insert({'username': username, 'password': password})
+                session['username'] = username
+                return jsonify({'success': True})
+        
+        except Exception as e:
+            print(f"Napaka pri prijavi: {str(e)}")
+            return jsonify({'success': False, 'error': 'Prišlo je do napake'})
+    else:
+        return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
+
+
+if __name__ == "__main__":
+    # Ustvari direktorij za predloge, če ne obstaja
+    if not os.path.exists('templates'):
+        os.makedirs('templates')
 
 app.run(debug=True)
