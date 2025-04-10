@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = "holou_nit_skong_jvelin"
 
 db = TinyDB('user.json')
-user = db.table('user')
+user_table = db.table('user')
 repository = db.table('repository')
 User = Query()
 
@@ -26,17 +26,17 @@ def login():
             username = request.form['username']
             password = request.form['password']
 
-            user = user.get(user.username == username)
+            user_record = user_table.get(User.username == username)
 
-            if user:
-                if user['password'] == password:
+            if user_record:
+                if user_record['password'] == password:
                     session['username'] = username
 
                     return jsonify({'success': True})
                 else:
-                    return jsonify({'success': True, 'error': 'Napačno geslo'})
+                    return jsonify({'success': False, 'error': 'Napačno geslo'})
             else:
-                user.insert({'username': username, 'password': password})
+                user_table.insert({'username': username, 'password': password})
                 session['username'] = username
                 return jsonify({'success': True})
         
@@ -58,4 +58,4 @@ if __name__ == "__main__":
     if not os.path.exists('templates'):
         os.makedirs('templates')
 
-app.run(debug=True)
+    app.run(debug=True)
