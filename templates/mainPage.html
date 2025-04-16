@@ -1,12 +1,227 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github but not as good... for now</title>    
+    <title>Github but not as good... for now</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f6f8fa;
+            color: #24292e;
+        }
+        
+        .main-container {
+            display: flex;
+            max-width: 1280px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: #ffffff;
+            border-right: 1px solid #e1e4e8;
+            padding: 20px;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e1e4e8;
+            margin: 0 auto 20px;
+        }
+        
+        .repositories-nav {
+            margin-top: 20px;
+            padding: 10px 0;
+            font-weight: bold;
+            border-top: 1px solid #e1e4e8;
+        }
+        
+        .main-page {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-top: none;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        
+        .menu-bar {
+            display: flex;
+            width: 100%;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        
+        .menu-item {
+            padding: 8px 16px;
+            color: #24292e;
+            text-decoration: none;
+        }
+        
+        .menu-item.active {
+            font-weight: bold;
+            border-bottom: 2px solid #f9826c;
+        }
+        
+        .repository-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        
+        .repository-name {
+            font-weight: bold;
+            color: #0366d6;
+            flex: 1;
+        }
+        
+        .repo-list {
+            margin-top: 20px;
+            border: 1px solid #e1e4e8;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .repo-item {
+            padding: 8px;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        
+        .repo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .btn {
+            padding: 5px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            border: 1px solid rgba(27, 31, 35, 0.15);
+            background-color: #fafbfc;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: #2ea44f;
+            color: #ffffff;
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .load-repos {
+            margin-left: 10px;
+            color: #0366d6;
+            cursor: pointer;
+        }
+        
+        .minimize-btn {
+            font-size: 12px;
+            color: #586069;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <body>
-    <a href="/login">LOGIN</a>
+    <div class="main-container">
+        <!-- Left sidebar containing profile pic and repositories link -->
+        <div class="sidebar">
+            <div class="profile-pic" title="Profile picture"></div>
+            <div class="repositories-nav">
+                <a href="#repositories">repositories</a>
+            </div>
+            <div class="sidebar-note">
+                <p><small>*leads to account settings page and appearance settings and such,<br>
+                *can change password and username*</small></p>
+            </div>
+        </div>
+        
+        <!-- Main content area -->
+        <div class="main-page">
+            <h2 class="title">MAIN PAGE</h2>
+            
+            <!-- Menu bar with repository details -->
+            <div class="menu-bar">
+                <div class="menu-item active">menu</div>
+                <div class="repository-name">repository name</div>
+                <div class="menu-item">+repos.</div>
+                <div class="load-repos">load repos.</div>
+            </div>
+            
+            <!-- Repository list section -->
+            <div class="repo-list">
+                <div class="repo-header">
+                    <span>list of user's repositories,</span>
+                    <div class="minimize-btn">list can be minimized (extended or contracted)</div>
+                </div>
+                
+                <div class="repo-item">Repository 1</div>
+                <div class="repo-item">Repository 2</div>
+                <div class="repo-item">Repository 3</div>
+            </div>
+            
+            <!-- Action buttons with descriptions -->
+            <div class="actions">
+                <div class="repository-row">
+                    <span>Create new repository:</span>
+                    <button class="btn btn-primary">makes a new repos.</button>
+                </div>
+                
+                <div class="repository-row">
+                    <span>Load repositories from other users:</span>
+                    <button class="btn">can fetch and load repos. of other users they have permission to</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Toggle repository list when minimize button is clicked
+            $(".minimize-btn").click(function() {
+                $(".repo-item").toggle();
+                
+                if($(".repo-item").is(":visible")) {
+                    $(this).text("list can be minimized (extended or contracted)");
+                } else {
+                    $(this).text("list can be expanded (currently contracted)");
+                }
+            });
+            
+            // Add repository action
+            $(".menu-item:contains('+repos.')").click(function() {
+                alert("Creating a new repository");
+            });
+            
+            // Load repositories action
+            $(".load-repos").click(function() {
+                alert("Loading repositories");
+            });
+        });
+    </script>
 </body>
 </html>
