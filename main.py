@@ -19,6 +19,8 @@ def mainPage():
         return render_template("mainPage.html")
     return redirect(url_for('login'))
 
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -51,7 +53,9 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-
+@app.route('/account_settings')
+def account_settings():
+    return 
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja
