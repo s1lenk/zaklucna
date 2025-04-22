@@ -11,6 +11,9 @@
 </head>
 <body>
     <h1>MAIN PAGE</h1>
+
+    <div id="error-message" style="color: red; display: none;"></div>
+
     <div>
         <input type="text" id="repository_name" required>
         <button onclick="createRepository()">Create repository</button>
@@ -19,15 +22,29 @@
     <script>
         function createRepository(){
             const repository_name = document.getElementById('repository_name').value.trim();
+            const errorMessage = document.getElementById('error-message');
 
         if (repository_name === '') {
-            errorMessage.textContent = 'Username and password are mandatory!';
+            errorMessage.textContent = 'Name is mandatory!';
             errorMessage.style.display = 'block';
             return;
         }
+        errorMessage.style.display = 'none';
+
+        $.ajax({
+            url: '/mainPage',
+            type: 'POST',
+            data: {
+                repository_name: repository_name
+            },
+            dataType: 'json',
+            success: function(response){
+                
+            }
+        })
     }
 
-        errorMessage.style.display = 'none';
+        
     </script>
 </body>
 </html>
