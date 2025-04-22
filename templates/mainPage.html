@@ -10,6 +10,24 @@
     </style>
 </head>
 <body>
-    
+    <h1>MAIN PAGE</h1>
+    <div>
+        <input type="text" id="repository_name" required>
+        <button onclick="createRepository()">Create repository</button>
+    </div>
+
+    <script>
+        function createRepository(){
+            const repository_name = document.getElementById('repository_name').value.trim();
+
+        if (repository_name === '') {
+            errorMessage.textContent = 'Username and password are mandatory!';
+            errorMessage.style.display = 'block';
+            return;
+        }
+    }
+
+        errorMessage.style.display = 'none';
+    </script>
 </body>
 </html>
