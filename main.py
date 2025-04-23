@@ -74,7 +74,7 @@ def create_repository():
         repository.insert({
             'user': username,
             'repository_name': repository_name,
-            'date of creation': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            'date of creation': datetime.now().strftime("%H:%M:%S %d-%m-%Y")
         })
 
         return jsonify({'success': True})
