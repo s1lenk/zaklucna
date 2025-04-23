@@ -13,7 +13,7 @@ repository = db.table('repository')
 User = Query()
 
 
-@app.route("/")
+@app.route("/mainPage", methods=['POST', 'GET'])
 def mainPage():
     if 'username' in session:
         return render_template("mainPage.html")
@@ -43,8 +43,8 @@ def login():
                 return jsonify({'success': True})
         
         except Exception as e:
-            print(f"Napaka pri prijavi: {str(e)}")
-            return jsonify({'success': False, 'error': 'Prišlo je do napake'})
+            print(f"An error occured while logging in: {str(e)}")
+            return jsonify({'success': False, 'error': 'An error occured while logging in'})
     else:
         return render_template('login.html')
 
@@ -56,6 +56,32 @@ def logout():
 @app.route('/account_settings')
 def account_settings():
     return 
+
+@app.route('/create_repository', methods=['POST'])
+def create_repository():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    try: 
+        repository_name = request.form['repository_name']
+        username = session['username']
+
+        existing_repository = repository.get((User.username == username) & (User.repository_name == repository_name))
+
+        if existing_repository:
+            return jsonify({'success': False, 'error': 'Repository already exists'})
+        
+        repository.insert({
+            'user': username,
+            'repository_name': repository_name,
+            'date of creation': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        })
+
+        return jsonify({'success': True})
+
+    except Exception as e:
+        print(f"An error occured while trying to create a repository: {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occured while trying to create a repository'})
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja

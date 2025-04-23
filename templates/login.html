@@ -87,7 +87,7 @@
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    window.location.href = '/';
+                    window.location.href = '/mainPage';
                 }else {
                     errorMessage.textContent = response.error;
                     errorMessage.style.display = 'block';
