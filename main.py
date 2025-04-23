@@ -89,3 +89,4 @@ if __name__ == "__main__":
         os.makedirs('templates')
 
     app.run(debug=True)
+    

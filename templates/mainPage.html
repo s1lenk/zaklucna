@@ -7,6 +7,9 @@
     <title>Github but not as good... for now</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
+        div{
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -18,6 +21,10 @@
         <input type="text" id="repository_name" required>
         <button onclick="createRepository()">Create repository</button>
     </div>
+
+    <div>
+        <button onclick="window.location.href='/logout'">logout</button>
+    </div> 
 
     <script>
         function createRepository(){
