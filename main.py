@@ -12,6 +12,10 @@ user_table = db.table('user')
 repository = db.table('repository')
 User = Query()
 
+@app.route("/")
+def index():
+    return redirect(url_for('login'))
+
 
 @app.route("/mainPage", methods=['POST', 'GET'])
 def mainPage():
@@ -48,14 +52,17 @@ def login():
     else:
         return render_template('login.html')
 
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
+
 @app.route('/account_settings')
 def account_settings():
     return 
+
 
 @app.route('/create_repository', methods=['POST'])
 def create_repository():
@@ -82,6 +89,23 @@ def create_repository():
     except Exception as e:
         print(f"An error occured while trying to create a repository: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to create a repository'})
+    
+
+@app.route('/add_text_to_repos', methods=['POST'])
+def add_text_to_repos():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    try: 
+        repository_name = request.form['input_repos']
+        username = session['username']
+
+
+    except Exception as e:
+        print(f"An error occured while trying to add text to the repository: {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
+
+
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja
