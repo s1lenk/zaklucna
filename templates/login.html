@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN PAGE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         body {
             background-color: darkgray;
@@ -19,7 +20,7 @@
             font-family: Arial, sans-serif;
         }
 
-        div {
+        .login-box {
             box-sizing: border-box;
             border-style: solid;
             border-width: 1px;
@@ -27,15 +28,7 @@
             margin: 5%;
             padding: 1%;
         }
-        .loginButton{
-            box-sizing: border-box;
-            border-style: solid;
-            border-width: 1px;
-            border-radius: 10px;
-            margin: 5%;
-            padding: 0;
-             
-        }
+
     </style>
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -44,17 +37,16 @@
 
     <div id="error-message" style="color: red; display: none;"></div>
 
-    <div id="login-container">
+    <div id="login-container" class="login-box">
         <h2>Login / Register</h2>
         <p>If you don't have an account a new one will be created.</p>
 
         <div>
-            <label for="username">Username:</label>
+            <label for="username">Username:</label><br>
             <input type="text" id="username" required>
         </div>
-
         <div>
-            <label for="password">Password:</label>
+            <label for="password">Password:</label><br>
             <input type="password" id="password" required>
         </div>
 
