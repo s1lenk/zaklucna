@@ -96,6 +96,20 @@ def create_repository():
         return jsonify({'success': False, 'error': 'An error occured while trying to create a repository'})
     
 
+@app.route("/repository/<repository_name>")
+def view_repository(repository_name):
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    username = session['username']
+    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+
+    if not repository:
+        return redirect(url_for("mainPage"))
+
+    return render_template("repository.html", repository=repository)
+
+
 @app.route('/add_file', methods=['POST'])
 def add_text_to_repos():
     if 'username' not in session:

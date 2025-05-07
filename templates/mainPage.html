@@ -44,6 +44,7 @@
                             <td>{{ repo["date of creation"] }}</td>
                             <td>
                                 <button onclick="window.location.href='/repository/{{ repo.repository_name }}'">View</button>
+                                <button onclick="delete_repository(repo.repository_name)">Delete</button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -53,10 +54,15 @@
             <p>You don't have any repositories yet. Create one to get started!</p>
         {% endif %}
     </div>
+
     <script>
         function createRepository(){
             const repository_name = document.getElementById('repository_name').value.trim();
             const errorMessage = document.getElementById('error-message');
+
+        function delete_repository(repository_name){
+            
+        }
 
         if (repository_name === '') {
             errorMessage.textContent = 'Name is mandatory!';
