@@ -4,22 +4,5 @@
       "username": "andrej",
       "password": "123"
     }
-  },
-  "repository": {
-    "2": {
-      "user": "andrej",
-      "repository_name": "repo2",
-      "date of creation": "07:57:24 23-04-2025"
-    },
-    "3": {
-      "user": "andrej",
-      "repository_name": "shitstain",
-      "date of creation": "07:57:50 23-04-2025"
-    },
-    "4": {
-      "user": "andrej",
-      "repository_name": "repo1",
-      "date of creation": "07:58:42 23-04-2025"
-    }
   }
 }

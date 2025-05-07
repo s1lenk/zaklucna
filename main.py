@@ -9,7 +9,7 @@ app.secret_key = "holou_nit_skong_jvelin"
 
 db = TinyDB('user.json')
 user_table = db.table('user')
-repository = db.table('repository')
+repository_db = TinyDB('repositories.json')
 User = Query()
 
 @app.route("/")
@@ -20,7 +20,9 @@ def index():
 @app.route("/mainPage", methods=['POST', 'GET'])
 def mainPage():
     if 'username' in session:
-        return render_template("mainPage.html")
+        username = session['username']
+        repositories = repository_db.search(User.user == username)
+        return render_template("mainPage.html", repositories = repositories)
     return redirect(url_for('login'))
 
 
@@ -73,15 +75,16 @@ def create_repository():
         repository_name = request.form['repository_name']
         username = session['username']
 
-        existing_repository = repository.get((User.username == username) & (User.repository_name == repository_name))
+        existing_repository = repository_db.get((User.username == username) & (User.repository_name == repository_name))
 
         if existing_repository:
             return jsonify({'success': False, 'error': 'Repository already exists'})
         
-        repository.insert({
+        repository_db.insert({
             'user': username,
             'repository_name': repository_name,
-            'date of creation': datetime.now().strftime("%H:%M:%S %d-%m-%Y")
+            'date of creation': datetime.now().strftime("%H:%M:%S %d-%m-%Y"),
+            'files': []
         })
 
         return jsonify({'success': True})
@@ -91,13 +94,13 @@ def create_repository():
         return jsonify({'success': False, 'error': 'An error occured while trying to create a repository'})
     
 
-@app.route('/add_text_to_repos', methods=['POST'])
+@app.route('/add_file', methods=['POST'])
 def add_text_to_repos():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
     
     try: 
-        repository_name = request.form['input_repos']
+        repository_name = request.form['repository_name']
         username = session['username']
 
 
