@@ -110,8 +110,8 @@
                 <tbody>
                     {% for repo in repositories %}
                         <tr>
-                            <td>{{ repo.repository_name }}</td>
-                            <td>{{ repo.date_of_creation }}</td>
+                            <td>{{ repo["repository_name"] }}</td>
+                            <td>{{ repo["date of creation"] }}</td>
                             <td>
                                 <button onclick="window.location.href='/repository/{{ repo.repository_name }}'">View</button>
                             </td>
