@@ -69,7 +69,7 @@ def account_settings():
 
 @app.route('/create_repository', methods=['POST'])
 def create_repository():
-    bad_characters = """!#$%&()*+,-./:;<=>?@[]"^_`{|}~'"""
+    bad_characters = """!#$%&()*+,-./:;<=>?@[]"^`{|}~'"""
 
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
