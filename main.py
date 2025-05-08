@@ -133,19 +133,26 @@ def add_text_to_repos():
 
 
 @app.route('/delete_repository/', methods=['POST'])
-def delete_repository(repository_name):
+def delete_repository():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
     
-    username = session['username']
-    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+    try:
+        username = session['username']
+        repository_name = request.form['repository_name']
 
-    if not repository:
-        return jsonify({'success': False, 'error': 'Could not delete repository'})
-    
-    repository_db.remove(User.repository_name == repository_name)
-    
-    return jsonify({'success': True})
+        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+
+        if not repository:
+            return jsonify({'success': False, 'error': 'Could not delete repository'})
+        
+        repository_db.remove((User.user == username) & (User.repository_name == repository_name))
+
+        return jsonify({'success': True})
+
+    except Exception as e:
+        print(f"An error occured while trying to delete the repository: {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occured while trying to delete the repository'})
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja
