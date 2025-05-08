@@ -90,7 +90,9 @@
                     errorMessage.textContent = 'Something went wrong. Try again.';
                     errorMessage.style.display = 'block';
                 }
-            }),
+            })
+        }
+        
 
         function delete_repository(repository_name){
             if(confirm("Are you sure you want to delete this repository?")){
@@ -116,10 +118,9 @@
                         errorMessage.style.display = 'block';
                     }
 
-                })
+                });
             }
         }
-    }
 
         
     </script>
