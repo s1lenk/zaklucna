@@ -19,11 +19,85 @@
         </div>
     </header>
 
-    <section>
-        <div class="container">
-            
-        </div>
-    </section>
 
+    <div class="container">
+        <h2>Upload file</h2>
+        <div id="error-message-upload-file" class="error-message" style="display: none; font-weight: bold;"></div>
+        
+        <!-- upload a file -->
+        <div class="file-upload-container">
+            <form id="file-upload-form" enctype="multipart/form-data">
+                <input type="hidden" name="repository_name" value="{{ repository.repository_name }}">
+                <input type="file" id="file-input" name="file" required>
+                <button type="submit">Upload file</button>
+            </form>
+
+        <!-- fancy progress bar-->
+            <div id="upload-progress">
+                <p>Uploading...</p>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Repository files</h2>
+        <div id="error-message-upload-file" class="error-message" style="display: none; font-weight: bold;"></div>
+
+        <!-- shit goes into flask asks it if the repository has any files and then triggers a for loop that shows all the files and their shit-->
+        <div class="file-list">
+            {% if repository.files and repository.files|length > 0 %}
+                {% for file in repository.files %}
+                <div class="file-item">
+                    <div class="file-type-icon">
+                        {{ file.extension.upper() }}
+                    </div>
+                    <div class="file-info">
+                        <strong>{{ file.original_filename }}</strong>
+                        <div>Uploaded: {{ file.date_uploaded }}</div>
+                        <div>Size: {{ (file.file_size / 1024|round(2)) }} KB</div>
+                    </div>
+                    <div class="file-actions">
+                        <button onclick="viewFile('{{ repository.repository_name }}', '{{ file.stored_filename }}')">View</button>
+                        <button onclick="deleteFile('{{ repository.repository_name }}', '{{ file.stored_filename }}', '{{ file.original_filename }}')">Delete</button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No files in this repository yet. Upload a file to get started!</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // gets the form with the uploaded file and its contents and gives an error if no file is in the files array
+        document.getElementById('file-upload-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const errorMessage = document.getElementById('error-message-upload-file');
+            const fileInput = document.getElementById('file-input');
+            const progressBar = document.getElementById('upload-progress');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+
+            if (fileInput.files.length === 0) {
+                errorMessage.textContent = 'Select a file you donut!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            const formData = new FormData(this); // creates a variable that stores all the info inside the upload form
+
+            // progress bar magic
+            progressBarFill.style.width = '0%';
+            progressBar.style.display = 'block';
+            errorMessage.style.display = 'none';
+
+
+            // ajax sending the form data
+
+        })
+    </script>
 </body>
 </html>

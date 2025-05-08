@@ -3,15 +3,24 @@ from tinydb import TinyDB, Query
 from datetime import datetime
 import os
 import requests
+import uuid
 
 app = Flask(__name__)
 app.secret_key = "holou_nit_skong_jvelin"
+
+# Create uploads directory if it doesn't exist
+UPLOAD_FOLDER = 'uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 db = TinyDB('user.json')
 user_table = db.table('user')
 repository_db = TinyDB('repositories.json')
 repository_table = repository_db.table('repository')
 User = Query()
+
+# Allowed file extensions
+ALLOWED_EXTENSIONS = {'py', 'html', 'css', 'js', 'txt', 'md', 'json', 'xml', 'csv'}
 
 @app.route("/")
 def index():
@@ -141,13 +150,18 @@ def delete_repository():
 
 
 @app.route('/add_file', methods=['POST'])
-def add_text_to_repos():
+def add_file():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
     
     try: 
         repository_name = request.form['repository_name']
         username = session['username']
+
+        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+
+        if not repository:
+            return jsonify ({'success': False, 'error': 'Repository not found'})
 
     except Exception as e:
         print(f"An error occured while trying to add text to the repository: {str(e)}")
