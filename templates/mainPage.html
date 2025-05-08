@@ -29,6 +29,7 @@
     <div class="container">
         <h2>Your Repositories</h2>
         {% if repositories %}
+            <div id="error-message-delete-repository" class="error-message" style="display: none; font-weight: bold;"></div>
             <table>
                 <thead>
                     <tr>
@@ -95,6 +96,8 @@
         
 
         function delete_repository(repository_name){
+            const errorMessage = document.getElementById('error-message-delete-repository');
+
             if(confirm("Are you sure you want to delete this repository?")){
                 $.ajax({
                     url: '/delete_repository',
@@ -114,7 +117,7 @@
 
                     error: function(xhr, status, error) {
                         console.error('error details: ', xhr.responseText);
-                        errorMessage.textContent = 'Something went wrong. Try again.';
+                        errorMessage.textContent = 'Something went wrong while deleting. Check console for details.';
                         errorMessage.style.display = 'block';
                     }
 
