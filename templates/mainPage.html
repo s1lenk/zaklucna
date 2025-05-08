@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="header">
-        <h1>MAIN PAGE</h1>
-        <div>
-            <button onclick="window.location.href='/account_settings'">Account Settings</button>
-            <button onclick="window.location.href='/logout'">Logout</button>
+    <header>
+        <div class="header">
+            <h1>MAIN PAGE</h1>
+            <div>
+                <button onclick="window.location.href='/account_settings'">Account Settings</button>
+                <button onclick="window.location.href='/logout'">Logout</button>
+            </div>
         </div>
-    </div>
+    </header>
 
     <div class="container">
         <h2>Create New Repository</h2>

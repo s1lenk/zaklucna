@@ -117,22 +117,7 @@ def view_repository(repository_name):
     return render_template("repository.html", repository=repository)
 
 
-@app.route('/add_file', methods=['POST'])
-def add_text_to_repos():
-    if 'username' not in session:
-        return jsonify({'success': False, 'error': 'Not logged in'})
-    
-    try: 
-        repository_name = request.form['repository_name']
-        username = session['username']
-
-
-    except Exception as e:
-        print(f"An error occured while trying to add text to the repository: {str(e)}")
-        return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
-
-
-@app.route('/delete_repository/', methods=['POST'])
+@app.route('/delete_repository', methods=['POST'])
 def delete_repository():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
@@ -153,6 +138,21 @@ def delete_repository():
     except Exception as e:
         print(f"An error occured while trying to delete the repository: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to delete the repository'})
+
+
+@app.route('/add_file', methods=['POST'])
+def add_text_to_repos():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    try: 
+        repository_name = request.form['repository_name']
+        username = session['username']
+
+    except Exception as e:
+        print(f"An error occured while trying to add text to the repository: {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
+
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja
