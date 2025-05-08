@@ -10,6 +10,7 @@ app.secret_key = "holou_nit_skong_jvelin"
 db = TinyDB('user.json')
 user_table = db.table('user')
 repository_db = TinyDB('repositories.json')
+repository_table = repository_db.table('repository')
 User = Query()
 
 @app.route("/")
@@ -68,6 +69,8 @@ def account_settings():
 
 @app.route('/create_repository', methods=['POST'])
 def create_repository():
+    bad_characters = """!#$%&()*+,-./:;<=>?@[]"^_`{|}~'"""
+
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
     
@@ -75,7 +78,11 @@ def create_repository():
         repository_name = request.form['repository_name']
         username = session['username']
 
-        existing_repository = repository_db.get((User.username == username) & (User.repository_name == repository_name))
+        for bc in bad_characters:
+            if bc in repository_name:
+                return jsonify({'success': False, 'error': 'The name of the repository cannot include special characters'})
+
+        existing_repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
 
         if existing_repository:
             return jsonify({'success': False, 'error': 'Repository already exists'})
@@ -96,7 +103,7 @@ def create_repository():
         return jsonify({'success': False, 'error': 'An error occured while trying to create a repository'})
     
 
-@app.route("/repository/<repository_name>")
+@app.route("/view_repository/<repository_name>")
 def view_repository(repository_name):
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
@@ -125,6 +132,20 @@ def add_text_to_repos():
         return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
 
 
+@app.route('/delete_repository/', methods=['POST'])
+def delete_repository(repository_name):
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    username = session['username']
+    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+
+    if not repository:
+        return jsonify({'success': False, 'error': 'Could not delete repository'})
+    
+    repository_db.remove(User.repository_name == repository_name)
+    
+    return jsonify({'success': True})
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja

@@ -19,7 +19,7 @@
 
     <div class="container">
         <h2>Create New Repository</h2>
-        <div id="error-message" class="error-message" style="display: none;"></div>
+        <div id="error-message" class="error-message" style="display: none; font-weight: bold;"></div>
         <div>
             <input type="text" id="repository_name" placeholder="Repository Name" required>
             <button onclick="createRepository()">Create repository</button>
@@ -43,7 +43,7 @@
                             <td>{{ repo["repository_name"] }}</td>
                             <td>{{ repo["date of creation"] }}</td>
                             <td>
-                                <button onclick="window.location.href='/repository/{{ repo.repository_name }}'">View</button>
+                                <button onclick="window.location.href='/view_repository/{{ repo.repository_name }}'">View</button>
                                 <button onclick="delete_repository(repo.repository_name)">Delete</button>
                             </td>
                         </tr>
@@ -61,9 +61,9 @@
             const errorMessage = document.getElementById('error-message');
 
         function delete_repository(repository_name){
-            
+            const repository_name = repository_name;
         }
-
+            
         if (repository_name === '') {
             errorMessage.textContent = 'Name is mandatory!';
             errorMessage.style.display = 'block';
@@ -91,6 +91,14 @@
                 console.error('error details: ', xhr.responseText);
                 errorMessage.textContent = 'Something went wrong. Try again.';
                 errorMessage.style.display = 'block';
+            }
+        })
+
+        $.ajax({
+            url: '/delete_repository',
+            type: 'POST',
+            data: {
+                repository_name: repository_name
             }
         })
     }
