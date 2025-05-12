@@ -26,17 +26,18 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: lightgray;
+    color: #333;
 }
 
 tr:hover {
-    background-color: lightgrey;
+    background-color: #d3d3d3;
 }
 
 div {
@@ -62,16 +63,11 @@ button:hover {
     margin-bottom: 10px;
 }
 
-input[type="text"] {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
+input[type="text"],
 input[type="password"] {
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #ddd
+    border: 1px solid #ccc;
 }
 
 label {
@@ -85,28 +81,75 @@ label {
 
 .file-list {
     margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .file-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+    background-color: lightgray;
+    transition: background-color 0.2s ease;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-item:hover {
+    background-color: #c0c0c0;
 }
 
 .file-info {
     flex-grow: 1;
+    padding: 0 15px;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: none;
 }
 
-.file-actions {
-    display: flex;
+.file-info strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: #333;
+    border: none;
+}
+
+.file-info div {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
 }
 
 .file-type-icon {
-    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 16px;
     font-weight: bold;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #4a4a4a;
+    border: none;
 }
+
+.file-type-icon.py { background-color: #3572A5; }
+.file-type-icon.html { background-color: #e34c26; }
+.file-type-icon.css { background-color: #563d7c; }
+.file-type-icon.js { background-color: #f1e05a; color: #333; }
+.file-type-icon.txt { background-color: #888888; }
+.file-type-icon.md { background-color: #083fa1; }
+.file-type-icon.json { background-color: #40a9ff; }
+.file-type-icon.xml { background-color: #ff6b6b; }
+.file-type-icon.csv { background-color: #4caf50; }
 
 #upload-progress {
     margin-top: 10px;
@@ -115,7 +158,7 @@ label {
 
 .progress-bar {
     height: 20px;
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -145,13 +188,65 @@ label {
     overflow-x: auto;
     white-space: pre-wrap;
     font-family: monospace;
-    border: 1px solid #ddd;
-}
-
-.file-info-item {
-    margin-bottom: 5px;
+    border: 1px solid #ccc;
 }
 
 .button-container {
     margin-top: 20px;
 }
+
+.file-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.metadata-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.file-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.file-actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.view-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.view-btn:hover {
+    background-color: #0069d9;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.empty-repo-message {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+}
+
