@@ -216,6 +216,7 @@ def add_file():
     except Exception as e:
         print(f"An error occured while trying to add text to the repository: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
+    
 
 @app.route('/view/<repository_name>/<stored_filename>')
 def view_file(repository_name, stored_filename):
