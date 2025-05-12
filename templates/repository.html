@@ -96,8 +96,71 @@
 
 
             // ajax sending the form data
+            $.ajax({
+                url: '/add_file',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                xhr: function() {
+                    const xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener('progress', function(evt){
+                        if (evt.lengthComputable){
+                            const percentComplete = (evt.loaded / evt.total)
+                            progressBarFill.style.width = percentComplete + '%';
+                        }
+                    }, false);
+                    return xhr;
+                },
 
-        })
+                success: function(response) {
+                    progressBar.style.display = 'none';
+
+                    if (repsonse.success) {
+                        alert('File successfully uploaded!');
+                        window.location.reload();
+                    } else {
+                        errorMessage.textContent = repsonse.error;
+                        errorMessage.style.display = 'block';
+                    }
+                },
+                error: function() {
+                    progressBar.style.display = 'none';
+                    errorMessage.textContent = 'An error occured while uploading the file!'
+                    errorMessage.style.display = 'block';
+                }
+            });
+        });
+
+        //view file function
+        function viewFile(repositoryName, storedFilename) {
+            window.location.href = `/view_file/${repositoryName}/${storedFilename}`;
+        }
+
+        //delete file function
+        function deleteFile(repositoryName, storedFilename, originalFilename) {
+            const errorMessage = document.getElementById('error-message-file');
+
+            if(confirm('Are you sure you want to delete the file "${originalFilename}"?')) {
+                $.ajax({
+                    url: '/delete_file',
+                    type: 'POST',
+                    data: {
+                        repository_name: repositoryName,
+                        stored_filename: storedFilename
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('File deleted successfully!');
+                            window.location.reload();
+                        } else {
+                            errorMessage.textContent = response.error;
+                        }
+                    }
+                })
+            }
+        }
     </script>
 </body>
 </html>
