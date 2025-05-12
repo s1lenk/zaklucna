@@ -156,9 +156,14 @@
                             window.location.reload();
                         } else {
                             errorMessage.textContent = response.error;
+                            errorMessage.style.display = 'block';
                         }
+                    },
+                    error: function() {
+                        errorMessage.textContent = 'An error occurred while deleting the file!'
+                        errorMessage.style.display = 'block';
                     }
-                })
+                });
             }
         }
     </script>

@@ -162,6 +162,9 @@ def add_file():
 
         if not repository:
             return jsonify ({'success': False, 'error': 'Repository not found'})
+        
+        if 'file' not in request.files:
+            return jsonify({'success': False, 'error': 'No file selected'})
 
     except Exception as e:
         print(f"An error occured while trying to add text to the repository: {str(e)}")
