@@ -207,13 +207,52 @@ def add_file():
 
             repository_db.update({'files': files},
                                  (User.user == username) & (User.repository_name == repository_name))
-
-
-
+            
+            return jsonify({'success': True})
+        else:
+            allowed_extensions_list = ', '.join(ALLOWED_EXTENSIONS)
+            return jsonify({'success': False, 'error': f'File type not allowed. Allowed types: {allowed_extensions_list}'})
         
     except Exception as e:
         print(f"An error occured while trying to add text to the repository: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
+
+@app.route('/view/<repository_name>/<stored_filename>')
+def view_file(repository_name, stored_filename):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    username = session['username']
+    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+
+    if not repository:
+        return redirect(url_for('mainPage'))
+    
+    # Find the file in the repository
+    file_info = None
+    for file in repository.get('files', []):
+        if file['stored_filename'] == stored_filename:
+            file_info = file
+            break
+    
+    if not file_info:
+        return redirect(url_for('view_repository', repopsitory_name=repository_name))
+    
+    # Read file content
+    try:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], stored_filename)
+        with open(file_path, 'r') as f:
+            file_content = f.read()
+
+        return render_template('view_file.html',
+                               repository=repository,
+                               file_info=file_info,
+                               file_content=file_content)
+    
+    except Exception as e:
+        print(f"Error reading file: {str(e)}")
+        return redirect(url_for('view_repository', repository_name=repository_name))
+
 
 
 if __name__ == "__main__":
