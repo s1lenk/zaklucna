@@ -186,7 +186,7 @@ def add_file():
             # Create a unique filename to store the file
             original_filename = file.filename
             file_extension = original_filename.rsplit('.', 1)[1].lower() if '.' in original_filename else ''
-            unique_filename = f"{uuid.uuid().hex}.{file_extension}"
+            unique_filename = f"{uuid.uuid4().hex}.{file_extension}"
 
             #save the file
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
@@ -218,7 +218,7 @@ def add_file():
         return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
     
 
-@app.route('/view/<repository_name>/<stored_filename>')
+@app.route('/view_file/<repository_name>/<stored_filename>')
 def view_file(repository_name, stored_filename):
     if 'username' not in session:
         return redirect(url_for('login'))
