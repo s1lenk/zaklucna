@@ -13,6 +13,9 @@ UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload size
+
 db = TinyDB('user.json')
 user_table = db.table('user')
 repository_db = TinyDB('repositories.json')
@@ -21,6 +24,11 @@ User = Query()
 
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {'py', 'html', 'css', 'js', 'txt', 'md', 'json', 'xml', 'csv'}
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route("/")
 def index():
@@ -163,9 +171,46 @@ def add_file():
         if not repository:
             return jsonify ({'success': False, 'error': 'Repository not found'})
         
+        # Check if the post request has the file part
         if 'file' not in request.files:
             return jsonify({'success': False, 'error': 'No file selected'})
+        
+        file = request.files['file']
 
+        # If user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            return jsonify({'success': False, 'error': 'No file selected!'})
+        
+        if file and allowed_file(file.filename):
+            # Create a unique filename to store the file
+            original_filename = file.filename
+            file_extension = original_filename.rsplit('.', 1)[1].lower() if '.' in original_filename else ''
+            unique_filename = f"{uuid.uuid().hex}.{file_extension}"
+
+            #save the file
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+            file.save(file_path)
+
+            #update repository in the database
+            current_time = datetime.now().strftime("%H:%M:%S %d-%m-%Y")
+            new_file = {
+                'original_filename': original_filename,
+                'stored_filename': unique_filename,
+                'date_uploaded': current_time,
+                'file_size': os.path.getsize(file_path),
+                'extension': file_extension
+            }
+
+            files = repository.get('files', [])
+            files.append(new_file)
+
+            repository_db.update({'files': files},
+                                 (User.user == username) & (User.repository_name == repository_name))
+
+
+
+        
     except Exception as e:
         print(f"An error occured while trying to add text to the repository: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to add text to the repository'})
