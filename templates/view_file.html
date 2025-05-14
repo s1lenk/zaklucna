@@ -123,6 +123,34 @@
     </div>
 
     <script>
+        function deleteFile(repositoryName, storedFilename, originalFilename) {
+            const errorMessage = document.getElementById('error-message-file');
+
+            if(confirm('Are you sure you want to delete the file "${originalFilename}"?')) {
+                $.ajax({
+                    url: '/delete_file',
+                    type: 'POST',
+                    data: {
+                        repository_name: repositoryName,
+                        stored_filename: storedFilename
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('File deleted successfully!');
+                            window.location.reload();
+                        } else {
+                            errorMessage.textContent = response.error;
+                            errorMessage.style.display = 'block';
+                        }
+                    },
+                    error: function() {
+                        errorMessage.textContent = 'An error occurred while deleting the file!'
+                        errorMessage.style.display = 'block';
+                    }
+                });
+            }
+        }
 
     </script>
 </body>
