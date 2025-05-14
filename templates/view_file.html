@@ -3,9 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>View file {{ file_info.original_filename }}</title>
+    <style>
+                .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .file-details {
+            margin-bottom: 20px;
+        }
+        
+        .file-content {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+            border: 1px solid #ddd;
+        }
+        
+        .file-info-item {
+            margin-bottom: 5px;
+        }
+        
+        .button-container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    
+    <header>
+        <div class="header">
+            <h1>{{ file_info.original_filename }}</h1>
+            <div>
+                <button onclick="window.location.href='/mainPage'">Main Page</button>
+                <button onclick="window.location.href='/account_settings'">Account Settings</button>
+                <button onclick="window.location.href='/logout'">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="file-details">
+            <div class="file-info-item"><strong>Repository:</strong> {{ repository.repository_name }}</div>
+            <div class="file-info-item"><strong>File Name:</strong> {{ file_info.original_filename }}</div>
+            <div class="file-info-item"><strong>Type:</strong> {{ file_info.extension }}</div>
+            <div class="file-info-item"><strong>Size:</strong> {{ (file_info.file_size / 1024)|round(2) }} KB</div>
+            <div class="file-info-item"><strong>Uploaded:</strong> {{ file_info.date_uploaded }}</div>
+        </div>
+
+        <div class="button-container">
+            <button onclick="window.location.href='/view_repository/{{ repository.repository_name }}'">Back to Repository</button>
+            <button onclick="deleteFile('{{ repository.repository_name }}', '{{ file_info.stored_filename }}', '{{ file_info.original_filename }}')">Delete File</button>
+        </div>
+
+        <h2>File Content</h2>
+        <div class="file-content">{{ file_content }}</div>
+    </div>
+
+    <script>
+
+    </script>
 </body>
 </html>

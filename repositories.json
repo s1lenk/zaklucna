@@ -1,1 +1,44 @@
-{"_default": {"3": {"user": "andrej", "repository_name": "test2", "date of creation": "09:52:32 08-05-2025", "files": [{"original_filename": "blog.html", "stored_filename": "1030e603e7d447d7adaf87157b8a77dc.html", "date_uploaded": "19:47:13 12-05-2025", "file_size": 11218, "extension": "html"}, {"original_filename": "pythion.py", "stored_filename": "729f13a55f8e42b38e09a54210b6decc.py", "date_uploaded": "20:02:55 12-05-2025", "file_size": 0, "extension": "py"}, {"original_filename": "main.py", "stored_filename": "4856b84590c940629668623f92b0ffc1.py", "date_uploaded": "20:06:26 12-05-2025", "file_size": 9198, "extension": "py"}]}, "4": {"user": "andrej", "repository_name": "test_zanoixo", "date of creation": "20:48:53 08-05-2025", "files": []}, "5": {"user": "andrej", "repository_name": "shitstain", "date of creation": "21:05:35 08-05-2025", "files": []}}}
+{
+  "_default": {
+    "3": {
+      "user": "andrej",
+      "repository_name": "test2",
+      "date of creation": "09:52:32 08-05-2025",
+      "files": [
+        {
+          "original_filename": "blog.html",
+          "stored_filename": "1030e603e7d447d7adaf87157b8a77dc.html",
+          "date_uploaded": "19:47:13 12-05-2025",
+          "file_size": 11218,
+          "extension": "html"
+        },
+        {
+          "original_filename": "pythion.py",
+          "stored_filename": "729f13a55f8e42b38e09a54210b6decc.py",
+          "date_uploaded": "20:02:55 12-05-2025",
+          "file_size": 0,
+          "extension": "py"
+        },
+        {
+          "original_filename": "main.py",
+          "stored_filename": "4856b84590c940629668623f92b0ffc1.py",
+          "date_uploaded": "20:06:26 12-05-2025",
+          "file_size": 9198,
+          "extension": "py"
+        }
+      ]
+    },
+    "4": {
+      "user": "andrej",
+      "repository_name": "test_zanoixo",
+      "date of creation": "20:48:53 08-05-2025",
+      "files": []
+    },
+    "5": {
+      "user": "andrej",
+      "repository_name": "shitstain",
+      "date of creation": "21:05:35 08-05-2025",
+      "files": []
+    }
+  }
+}
