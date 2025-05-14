@@ -255,6 +255,21 @@ def view_file(repository_name, stored_filename):
         return redirect(url_for('view_repository', repository_name=repository_name))
 
 
+@app.route('delete_file', methods=['POST'])
+def delete_file():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    repository_name = request.form('repository_name')
+    username = session['username']
+    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+
+    print(repository_name)
+
+    if not repository:
+        pass
+
+
 
 if __name__ == "__main__":
     # Ustvari direktorij za predloge, če ne obstaja
