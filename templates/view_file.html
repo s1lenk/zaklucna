@@ -7,11 +7,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>View file {{ file_info.original_filename }}</title>
     <style>
-                .file-header {
+        .file-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            gap: 20px;
+        }
+        
+        .file-sidebar {
+            flex: 0 0 280px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+        
+        .file-content-container {
+            flex: 1;
         }
         
         .file-details {
@@ -26,15 +36,50 @@
             white-space: pre-wrap;
             font-family: monospace;
             border: 1px solid #ddd;
+            height: calc(100vh - 250px);
+            min-height: 400px;
         }
         
         .file-info-item {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .file-info-item:last-child {
+            border-bottom: none;
         }
         
         .button-container {
             margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
+        
+        .button-container button {
+            width: 100%;
+        }
+        
+        .file-type-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .file-type-badge.py { background-color: #3572A5; }
+        .file-type-badge.html { background-color: #e34c26; }
+        .file-type-badge.css { background-color: #563d7c; }
+        .file-type-badge.js { background-color: #f1e05a; color: #333; }
+        .file-type-badge.txt { background-color: #888888; }
+        .file-type-badge.md { background-color: #083fa1; }
+        .file-type-badge.json { background-color: #40a9ff; }
+        .file-type-badge.xml { background-color: #ff6b6b; }
+        .file-type-badge.csv { background-color: #4caf50; }
     </style>
 </head>
 <body>
@@ -42,29 +87,39 @@
         <div class="header">
             <h1>{{ file_info.original_filename }}</h1>
             <div>
+                <button onclick="window.location.href='/view_repository/{{ repository.repository_name }}'">Back to Repository</button>
                 <button onclick="window.location.href='/mainPage'">Main Page</button>
-                <button onclick="window.location.href='/account_settings'">Account Settings</button>
                 <button onclick="window.location.href='/logout'">Logout</button>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="file-details">
-            <div class="file-info-item"><strong>Repository:</strong> {{ repository.repository_name }}</div>
-            <div class="file-info-item"><strong>File Name:</strong> {{ file_info.original_filename }}</div>
-            <div class="file-info-item"><strong>Type:</strong> {{ file_info.extension }}</div>
-            <div class="file-info-item"><strong>Size:</strong> {{ (file_info.file_size / 1024)|round(2) }} KB</div>
-            <div class="file-info-item"><strong>Uploaded:</strong> {{ file_info.date_uploaded }}</div>
-        </div>
+        <div class="file-container">
+            <!-- Left sidebar with file details -->
+            <div class="file-sidebar">
+                <div class="file-type-badge {{ file_info.extension }}">{{ file_info.extension.upper() }}</div>
+                
+                <div class="file-details">
+                    <h3>File Details</h3>
+                    <div class="file-info-item"><strong>Repository:</strong> {{ repository.repository_name }}</div>
+                    <div class="file-info-item"><strong>File Name:</strong> {{ file_info.original_filename }}</div>
+                    <div class="file-info-item"><strong>Size:</strong> {{ (file_info.file_size / 1024)|round(2) }} KB</div>
+                    <div class="file-info-item"><strong>Uploaded:</strong> {{ file_info.date_uploaded }}</div>
+                </div>
 
-        <div class="button-container">
-            <button onclick="window.location.href='/view_repository/{{ repository.repository_name }}'">Back to Repository</button>
-            <button onclick="deleteFile('{{ repository.repository_name }}', '{{ file_info.stored_filename }}', '{{ file_info.original_filename }}')">Delete File</button>
-        </div>
+                <div class="button-container">
+                    <button onclick="window.location.href='/view_repository/{{ repository.repository_name }}'">Back to Repository</button>
+                    <button class="delete-btn" onclick="deleteFile('{{ repository.repository_name }}', '{{ file_info.stored_filename }}', '{{ file_info.original_filename }}')">Delete File</button>
+                </div>
+            </div>
 
-        <h2>File Content</h2>
-        <div class="file-content">{{ file_content }}</div>
+            <!-- Right content area with file content -->
+            <div class="file-content-container">
+                <h2>File Content</h2>
+                <div class="file-content">{{ file_content }}</div>
+            </div>
+        </div>
     </div>
 
     <script>
