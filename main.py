@@ -255,20 +255,47 @@ def view_file(repository_name, stored_filename):
         return redirect(url_for('view_repository', repository_name=repository_name))
 
 
-@app.route('delete_file', methods=['POST'])
+@app.route('/delete_file', methods=['POST'])
 def delete_file():
     if 'username' not in session:
         return redirect(url_for('login'))
     
-    repository_name = request.form('repository_name')
-    username = session['username']
-    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+    try: 
+        username = session['username']
+        repository_name = request.form['repository_name']
+        stored_filename = request.form['stored_filename']
+        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
 
-    print(repository_name)
+        print(repository_name)
 
-    if not repository:
-        pass
+        if not repository:
+            return jsonify({'sccuess': False, 'error': 'Repository not found'})
+        
+        files = repository.get['files', []]
+        updated_files = []
+        file_to_delete = None
 
+        for file in files: 
+            if file['stored_filename'] == stored_filename:
+                file_to_delete = file
+            else:
+                updated_files.append(file)
+
+        if not file_to_delete:
+            return jsonify({'success': False, 'error': 'File not found'})
+        
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], stored_filename)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        repository_db.update({'files': updated_files},
+                             (User.user == username) & (User.repository_name == repository_name))
+        
+        return jsonify({'success': True})
+
+    except Exception as e:
+        print(f"Error deleting file: {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occurred while trying to delete the file'})
 
 
 if __name__ == "__main__":
