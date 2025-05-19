@@ -271,7 +271,7 @@ def delete_file():
         if not repository:
             return jsonify({'sccuess': False, 'error': 'Repository not found'})
         
-        files = repository.get['files', []]
+        files = repository.get('files', [])
         updated_files = []
         file_to_delete = None
 

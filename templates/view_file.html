@@ -126,7 +126,7 @@
         function deleteFile(repositoryName, storedFilename, originalFilename) {
             const errorMessage = document.getElementById('error-message-file');
 
-            if(confirm('Are you sure you want to delete the file "${originalFilename}"?')) {
+            if(confirm('Are you sure you want to delete the file `${originalFilename}`?')) {
                 $.ajax({
                     url: '/delete_file',
                     type: 'POST',
@@ -138,13 +138,14 @@
                     success: function(response) {
                         if (response.success) {
                             alert('File deleted successfully!');
-                            window.location.reload();
+                            window.location.href = `/view_repository/${repositoryName}`;
                         } else {
                             errorMessage.textContent = response.error;
                             errorMessage.style.display = 'block';
                         }
                     },
-                    error: function() {
+                    error: function(xhr, status, error) {
+                        console.error('Error details:', xhr.responseText);
                         errorMessage.textContent = 'An error occurred while deleting the file!'
                         errorMessage.style.display = 'block';
                     }
