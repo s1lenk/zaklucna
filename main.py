@@ -79,7 +79,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/account_settings')
+@app.route('/account_settings', methods=['POST'])
 def account_settings():
     return 
 
