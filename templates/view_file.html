@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css">
     <title>View file {{ file_info.original_filename }}</title>
     <style>
         .file-container {
@@ -80,6 +81,10 @@
         .file-type-badge.json { background-color: #40a9ff; }
         .file-type-badge.xml { background-color: #ff6b6b; }
         .file-type-badge.csv { background-color: #4caf50; }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +101,6 @@
 
     <div class="container">
         <div class="file-container">
-            <!-- Left sidebar with file details -->
             <div class="file-sidebar">
                 <div class="file-type-badge {{ file_info.extension }}">{{ file_info.extension.upper() }}</div>
                 
@@ -114,15 +118,29 @@
                 </div>
             </div>
 
-            <!-- Right content area with file content -->
+
             <div class="file-content-container">
                 <h2>File Content</h2>
-                <div class="file-content">{{ file_content }}</div>
+                <div class="file-content">
+                    <pre><code class="{{ file_info.extension }}">{{ file_content }}</code></pre>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- syntax highlight -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            hljs.highlightAll();
+        });
+
         function deleteFile(repositoryName, storedFilename, originalFilename) {
             const errorMessage = document.getElementById('error-message-file');
 
