@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github but not as good... for now</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h1>MAIN PAGE</h1>
+            <div>
+                <button onclick="window.location.href='/account_settings'">Account Settings</button>
+                <button onclick="window.location.href='/logout'">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Create New Repository</h2>
+        <div id="error-message" class="error-message" style="display: none; font-weight: bold;"></div>
+        <div>
+            <input type="text" id="repository_name" placeholder="Repository Name" required>
+            <button onclick="createRepository()">Create repository</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Your Repositories</h2>
+        {% if repositories %}
+            <div id="error-message-delete-repository" class="error-message" style="display: none; font-weight: bold;"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Repository Name</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for repo in repositories %}
+                        <tr>
+                            <td>{{ repo["repository_name"] }}</td>
+                            <td>{{ repo["date of creation"] }}</td>
+                            <td>
+                                <button onclick="window.location.href='/view_repository/{{ repo.repository_name }}'">View</button>
+                                <button onclick="delete_repository('{{ repo.repository_name }}')">Delete</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You don't have any repositories yet. Create one to get started!</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function createRepository(){
+            const repository_name = document.getElementById('repository_name').value.trim();
+            const errorMessage = document.getElementById('error-message');
+            
+            if (repository_name === '') {
+                errorMessage.textContent = 'Name is mandatory!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            errorMessage.style.display = 'none';
+
+            $.ajax({
+                url: '/create_repository',
+                type: 'POST',
+                data: {
+                    repository_name: repository_name
+                },
+
+                dataType: 'json',
+                success: function(response){
+                    if (response.success) {
+                        alert('Repository created!')
+                        window.location.reload();
+                    }else {
+                        errorMessage.textContent = response.error;
+                        errorMessage.style.display = 'block';
+                    }
+                },
+
+                error: function(xhr, status, error) {
+                    console.error('error details: ', xhr.responseText);
+                    errorMessage.textContent = 'Something went wrong. Try again.';
+                    errorMessage.style.display = 'block';
+                }
+            })
+        }
+        
+
+        function delete_repository(repository_name){
+            const errorMessage = document.getElementById('error-message-delete-repository');
+
+            if(confirm("Are you sure you want to delete this repository?")){
+                $.ajax({
+                    url: '/delete_repository',
+                    type: 'POST',
+                    data: {
+                        repository_name: repository_name
+                    },
+                    dataType: 'json',
+                    success: function(response){
+                        if (response.success) {
+                            alert('Repository deleted!')
+                            window.location.reload();
+                        }else {
+                            alert('Error: ' + response.error);
+                        }
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.error('error details: ', xhr.responseText);
+                        errorMessage.textContent = 'Something went wrong while deleting. Check console for details.';
+                        errorMessage.style.display = 'block';
+                    }
+
+                });
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

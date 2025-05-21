@@ -5,6 +5,15 @@ body {
     padding: 20px;
 }
 
+.body_account_settings {
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.h1_account_settings {
+    padding-right: 20px;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -12,11 +21,25 @@ body {
     margin-bottom: 20px;
 }
 
+.header_account_settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
 .container {
     background-color: darkgray;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
 }
 
 table {
