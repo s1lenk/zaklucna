@@ -30,12 +30,28 @@
         <label for="search_user">Search for users:</label><br><br>
         <input id="search_user" type="text" placeholder="Enter username...">
         <button onclick="search_user()">Search</button>
-    </div>  
+    </div>
 
     <div class="container">
-        <table id="individuals">
-            <tbody></tbody>
-        </table>
+         {% if search_username_result %}
+            <div id="error-message-delete-repository" class="error-message" style="display: none; font-weight: bold;"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Individuals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in search_username_result %}
+                        <tr>
+                            <td>{{ user["searched_name"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>nothing</p>
+        {% endif %}
     </div>
 
     <script>
@@ -58,17 +74,6 @@
                 dataType: 'json',
                 success: function(response){
                     if (response.success) {
-                        $('#individuals').empty();
-                        var body = $('#individuals tbody');
-
-                        for (var data in response.user_data) {
-                            var single_data = result.data[d];
-                            $('#individuals tbody').append($('<tr>')
-                                .append($('<td>', { text: single_data.username}))
-                            )
-                        }
-
-
                         alert('Username found in the db')
                         window.location.reload();
                     }else {

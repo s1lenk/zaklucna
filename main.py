@@ -103,7 +103,7 @@ def search_for_user():
         searched_username = request.form['searched_username']
         current_username = session['username']
 
-        search_username_result = user_table.get(User.username == searched_username)
+        search_username_result = user_table.search(searched_username in User.username)
         
         if search_username_result:
             user_data = {
