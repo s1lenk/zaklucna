@@ -103,21 +103,25 @@ def search_for_user():
         searched_username = request.form['searched_username']
         current_username = session['username']
 
-        search_username_result = user_table.search(searched_username in User.username)
+        search_username_result = user_table.search(User.username.search(searched_username))
         
         if search_username_result:
-            user_data = {
-                'username': search_username_result['username']
-            }
+            user_data = []
 
-            return jsonify({
-                'success': True,
-                'user_data': user_data
-            })
+            for user in search_username_result:
+                user_data.append({
+                    'username': search_username_result['username']
+                })  
+
+            if user_data:
+                return jsonify({
+                    'success': True,
+                    'user_data': user_data
+                })
         else:
             return jsonify({
                 'success': False,
-                'error': 'User not found'
+                'error': 'No users found'
             })
 
     except Exception as e:

@@ -11,6 +11,32 @@
             margin-left: 25%;
             margin-right: 25%;
         }
+        
+        .search-results {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .user-item {
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .username {
+            font-weight: bold;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -26,37 +52,25 @@
     </header>
 
     <div>
-        <div id="error-message" style="color: yellow; display: none; font-weight: bold;"></div>
         <label for="search_user">Search for users:</label><br><br>
         <input id="search_user" type="text" placeholder="Enter username...">
-        <button onclick="search_user()">Search</button>
+        <button onclick="search_user()" >Search</button>
+        <div id="error-message" style="color: yellow; display: none; font-weight: bold;"></div>
     </div>
 
     <div class="container">
-         {% if search_username_result %}
-            <div id="error-message-delete-repository" class="error-message" style="display: none; font-weight: bold;"></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Individuals</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in search_username_result %}
-                        <tr>
-                            <td>{{ user["searched_name"] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>nothing</p>
-        {% endif %}
+        <div id="search_results" class="search_results">
+            <h3>Individuals</h3>
+            <div id="users-list"></div>
+        </div>
     </div>
+
 
     <script>
         function search_user() {
             const searched_username = document.getElementById('search_user').value.trim();
+            const search_results = document.getElementById('search_results');
+            const users_list = document.getElementById('users_list');
             const errorMessage = document.getElementById('error-message');
 
             if (searched_username === '') {
@@ -64,6 +78,10 @@
                 errorMessage.style.display = 'block';
                 return;
             }
+
+            errorMessage.style.display = 'none';
+            users_list.innerHTML = '';
+            search_results.style.display = 'none';
 
             $.ajax({
                 url: '/search_for_user',
@@ -73,9 +91,23 @@
                 },
                 dataType: 'json',
                 success: function(response){
-                    if (response.success) {
-                        alert('Username found in the db')
-                        window.location.reload();
+                    if (response.success && response.user_data && response.user_data-length > 0) {
+                        search_results.style.display = 'block';
+                        
+                        response.user_data.forEach(function(user) {
+                            const user_div = document.createElement('div');
+                            user_div.className = 'user-item';
+                            user_div.innerHTML = `
+                                <div class="user-info">
+                                    <div class="username">${user_data.username}</div>
+                                </div>
+                                <div class="user-actions">
+                                    <button onclick="viewUserProfile('${user_data.username}')">View Profile</button>
+                                </div>
+                            `;
+                            users_list.appendChild(user_div);
+                        });
+
                     }else {
                         errorMessage.textContent = response.error;
                         errorMessage.style.display = 'block';
@@ -87,8 +119,24 @@
                     errorMessage.textContent = 'Something went wrong. Try again.';
                     errorMessage.style.display = 'block';
                 }
-            })
+            });
         }
+
+        function clear_results() {
+            const search_results = document.getElementById('search_results').style.display = 'none';
+            const users_list = document.getElementById('users_list');
+            const errorMessage = document.getElementById('error-message').style.display = 'none';
+        }
+
+        function view_user_profile() {
+            alert('view profile of: ${username}');
+        }
+
+        document.getElementById('search_user').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                search_user();
+            }
+        });
     </script>
 </body>
 </html>
