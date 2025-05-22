@@ -87,12 +87,12 @@ def account_settings():
     return render_template('account_settings.html')
 
 
-@app.route('/community_page')
+@app.route('/community_page', methods=['GET'])
 def community_page():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
     
-    return render_template('community_page.html')
+    return render_template('community_page.html', )
 
 @app.route('/search_for_user', methods=['POST'])
 def search_for_user():
@@ -101,12 +101,24 @@ def search_for_user():
     
     try:
         searched_username = request.form['searched_username']
-        username = session['username']
+        current_username = session['username']
 
         search_username_result = user_table.search(User.username == searched_username)
         
         if search_username_result:
-            return jsonify({'success': True})
+            user_data = {
+                'username': search_username_result['username']
+            }
+
+            return jsonify({
+                'success': True,
+                'user_data': user_data
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'user not found'
+            })
 
     except Exception as e:
         print(f"An error occured while trying to search: {str(e)}")
