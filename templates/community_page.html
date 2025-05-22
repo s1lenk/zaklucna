@@ -99,10 +99,10 @@
                             user_div.className = 'user-item';
                             user_div.innerHTML = `
                                 <div class="user-info">
-                                    <div class="username">${user_data.username}</div>
+                                    <div class="username">${user.username}</div>
                                 </div>
                                 <div class="user-actions">
-                                    <button onclick="viewUserProfile('${user_data.username}')">View Profile</button>
+                                    <button onclick="view_user_profile('${user.username}')">View Profile</button>
                                 </div>
                             `;
                             users_list.appendChild(user_div);
