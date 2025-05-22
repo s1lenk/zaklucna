@@ -6,11 +6,17 @@
     <title>Community page</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body{
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="header">
-            <h1>{{ repository.repository_name }}</h1>
+            <h1>Community</h1>
             <div>
                 <button onclick="window.location.href='/mainPage'">Main Page</button>
                 <button onclick="window.location.href='/account_settings'">Account Settings</button>
@@ -19,5 +25,48 @@
         </div>
     </header>
 
+    <div>
+        <div id="error-message" style="color: yellow; display: none; font-weight: bold;"></div>
+        <label for="search_user">Search</label>
+        <input id="search_user" type="text" placeholder="...">
+        <button onclick="search_user()">GO</button>
+    </div>  
+
+    <script>
+        function search_user() {
+            const searched_username = document.getElementById('search_user').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            if (searched_input === '') {
+                errorMessage.textContent = 'IF YOU WANT TO SEARCH FOR A USER YOU NEED TO PUT A USERNAME IN THE SEARCH BAR... BUDDY!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            $.ajax({
+                url: '/search_for_user',
+                type: 'POST',
+                data: {
+                    searched_username: searched_username
+                },
+
+                dataType: 'json',
+                success: function(response){
+                    if (response.success) {
+                        window.location.reload();
+                    }else {
+                        errorMessage.textContent = response.error;
+                        errorMessage.style.display = 'block';
+                    }
+                },
+
+                error: function(xhr, status, error) {
+                    console.error('error details: ', xhr.responseText);
+                    errorMessage.textContent = 'Something went wrong. Try again.';
+                    errorMessage.style.display = 'block';
+                }
+            })
+        }
+    </script>
 </body>
 </html>

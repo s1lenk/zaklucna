@@ -81,12 +81,33 @@ def logout():
 
 @app.route('/account_settings')
 def account_settings():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
     return render_template('account_settings.html')
 
 
 @app.route('/community_page')
 def community_page():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
     return render_template('community_page.html')
+
+@app.route('/search_for_user', methods=['POST'])
+def search_for_user():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    try:
+        searched_username = request.form['searched_username']
+        username = session['username']
+
+        exist_username =
+        pass 
+
+    except:
+        pass
 
 
 @app.route('/create_repository', methods=['POST'])
