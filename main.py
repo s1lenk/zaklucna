@@ -103,7 +103,7 @@ def search_for_user():
         searched_username = request.form['searched_username']
         username = session['username']
 
-        exist_username = db.get((User.user == searched_username))
+        exist_username = user_table.get(User.username == searched_username)
         
         if exist_username:
             return jsonify({'success': True})
