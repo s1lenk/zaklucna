@@ -84,6 +84,11 @@ def account_settings():
     return render_template('account_settings.html')
 
 
+@app.route('/community_page')
+def community_page():
+    return render_template('community_page.html')
+
+
 @app.route('/create_repository', methods=['POST'])
 def create_repository():
     bad_characters = """!#$%&()*+,-./:;<=>?@[]"^`{|}~'"""
