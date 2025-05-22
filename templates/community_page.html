@@ -53,6 +53,7 @@
                 dataType: 'json',
                 success: function(response){
                     if (response.success) {
+                        alert('Username found in the db')
                         window.location.reload();
                     }else {
                         errorMessage.textContent = response.error;
