@@ -103,7 +103,7 @@ def search_for_user():
         searched_username = request.form['searched_username']
         current_username = session['username']
 
-        search_username_result = user_table.search(User.username == searched_username)
+        search_username_result = user_table.get(User.username == searched_username)
         
         if search_username_result:
             user_data = {
@@ -117,12 +117,12 @@ def search_for_user():
         else:
             return jsonify({
                 'success': False,
-                'error': 'user not found'
+                'error': 'User not found'
             })
 
     except Exception as e:
         print(f"An error occured while trying to search: {str(e)}")
-        return jsonify({'success': False, 'Error': 'An error occured while trying to search'})
+        return jsonify({'success': False, 'error': 'An error occured while trying to search'})
 
 
 @app.route('/create_repository', methods=['POST'])
