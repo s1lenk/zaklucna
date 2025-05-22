@@ -103,13 +103,14 @@ def search_for_user():
         searched_username = request.form['searched_username']
         username = session['username']
 
-        exist_username = user_table.get(User.username == searched_username)
+        search_username_result = user_table.search(User.username == searched_username)
         
-        if exist_username:
+        if search_username_result:
             return jsonify({'success': True})
 
-    except:
-        pass
+    except Exception as e:
+        print(f"An error occured while trying to search: {str(e)}")
+        return jsonify({'success': False, 'Error': 'An error occured while trying to search'})
 
 
 @app.route('/create_repository', methods=['POST'])
@@ -138,8 +139,6 @@ def create_repository():
             'date of creation': datetime.now().strftime("%H:%M:%S %d-%m-%Y"),
             'files': []
         })
-
-        
 
         return jsonify({'success': True})
 

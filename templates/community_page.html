@@ -32,6 +32,25 @@
         <button onclick="search_user()">GO</button>
     </div>  
 
+    <div class="container">
+        {% if  %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Individuals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in search_username_result %}
+                        <tr>
+                            <td>{{ result["searched_username"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
     <script>
         function search_user() {
             const searched_username = document.getElementById('search_user').value.trim();
