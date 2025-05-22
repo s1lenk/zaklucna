@@ -33,22 +33,9 @@
     </div>  
 
     <div class="container">
-        {% if search_username_result %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Individuals</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for result in search_username_result %}
-                        <tr>
-                            <td>{{ result["searched_username"] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
+        <table id="individuals">
+            <tbody></tbody>
+        </table>
     </div>
 
     <script>
@@ -68,10 +55,20 @@
                 data: {
                     searched_username: searched_username
                 },
-
                 dataType: 'json',
                 success: function(response){
                     if (response.success) {
+                        $('#individuals').empty();
+                        var body = $('#individuals tbody');
+
+                        for (var data in response.user_data) {
+                            var single_data = result.data[d];
+                            $('#individuals tbody').append($('<tr>')
+                                .append($('<td>', { text: single_data.username}))
+                            )
+                        }
+
+
                         alert('Username found in the db')
                         window.location.reload();
                     }else {
