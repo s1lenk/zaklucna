@@ -70,7 +70,7 @@
         function search_user() {
             const searched_username = document.getElementById('search_user').value.trim();
             const search_results = document.getElementById('search_results');
-            const users_list = document.getElementById('users_list');
+            const users_list = document.getElementById('users-list');
             const errorMessage = document.getElementById('error-message');
 
             if (searched_username === '') {
@@ -91,7 +91,7 @@
                 },
                 dataType: 'json',
                 success: function(response){
-                    if (response.success && response.user_data && response.user_data-length > 0) {
+                    if (response.success && response.user_data && response.user_data.length > 0) {
                         search_results.style.display = 'block';
                         
                         response.user_data.forEach(function(user) {
@@ -128,8 +128,8 @@
             const errorMessage = document.getElementById('error-message').style.display = 'none';
         }
 
-        function view_user_profile() {
-            alert('view profile of: ${username}');
+        function view_user_profile(username) {
+            alert('view profile of:' + username);
         }
 
         document.getElementById('search_user').addEventListener('keypress', function(e) {

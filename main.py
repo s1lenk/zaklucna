@@ -101,16 +101,16 @@ def search_for_user():
     
     try:
         searched_username = request.form['searched_username']
-        current_username = session['username']
+        # current_username = session['username']
 
-        search_username_result = user_table.search(User.username.search(searched_username))
+        search_username_result = user_table.search(User.username.contains(searched_username))
         
         if search_username_result:
             user_data = []
 
             for user in search_username_result:
                 user_data.append({
-                    'username': search_username_result['username']
+                    'username': user['username']
                 })  
 
             if user_data:
