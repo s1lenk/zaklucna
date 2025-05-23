@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, url_for, session, request, j
 from tinydb import TinyDB, Query
 from datetime import datetime
 import os
-import requests
 import uuid
 import re
 
@@ -17,9 +16,9 @@ if not os.path.exists(UPLOAD_FOLDER):
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload size
 
-db = TinyDB('user.json')
+db = TinyDB('static/json/user.json')
 user_table = db.table('user')
-repository_db = TinyDB('repositories.json')
+repository_db = TinyDB('static/json/repositories.json')
 repository_table = repository_db.table('repository')
 User = Query()
 
