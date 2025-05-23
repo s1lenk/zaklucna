@@ -103,6 +103,7 @@
                                 </div>
                                 <div class="user-actions">
                                     <button onclick="view_user_profile('${user.username}')">View Profile</button>
+                                    <button onclick="add_friend('${user.username}')" style="background-color: green; font-weight: bold;">Add as friend</button>
                                 </div>
                             `;
                             users_list.appendChild(user_div);
@@ -130,6 +131,11 @@
 
         function view_user_profile(username) {
             alert('view profile of:' + username);
+        }
+
+        function add_friend(add_friend_username) {
+            alert('adding ' + add_friend_username + ' as friend');
+            window.location.href=`/add_friend/${add_friend_username}`;
         }
 
         document.getElementById('search_user').addEventListener('keypress', function(e) {

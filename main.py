@@ -62,7 +62,11 @@ def login():
                 else:
                     return jsonify({'success': False, 'error': 'Napačno geslo'})
             else:
-                user_table.insert({'username': username, 'password': password})
+                user_table.insert({
+                    'username': username, 
+                    'password': password,
+                    'friends': []
+                })
                 session['username'] = username
                 return jsonify({'success': True})
         
@@ -374,9 +378,31 @@ def download_file(repository_name, stored_filename):
             download_name=file_info['original_filename']
         )
 
+
     except Exception as e:
         print(f"Error downloading file: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to download the file'})
+    
+
+@app.route('/add_friend/<add_friend_username>')
+def add_friend(add_friend_username):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    try:
+        added_friend_exist = user_table.get(User.username == add_friend_username)
+
+        if not added_friend_exist:
+            return jsonify({'success': False, 'error': f'Could not find user {add_friend_username} to add them as a friend'})
+        
+        friends = user_table.get('friends', [])
+        friends.append(add_friend_username)
+        
+        return jsonify({'success': True})
+
+    except Exception as e:
+        print(f"Error adding {add_friend_username} as friend: {str(e)}")
+        return jsonify({'success': False, 'error': f'An error occured while trying to add {add_friend_username} as friend'})
 
 
 if __name__ == "__main__":
