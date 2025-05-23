@@ -6,6 +6,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>github but worse repository {{ repository.repository_name }}</title>
+    <style>
+    </style>
 </head>
 <body>
     <header>
@@ -60,8 +62,9 @@
                         <div>Size: {{ (file.file_size / 1024|round(2)) }} KB</div>
                     </div>
                     <div class="file-actions">
-                        <button onclick="viewFile('{{ repository.repository_name }}', '{{ file.stored_filename }}')">View</button>
-                        <button onclick="deleteFile('{{ repository.repository_name }}', '{{ file.stored_filename }}', '{{ file.original_filename }}')">Delete</button>
+                        <button onclick="viewFile('{{ repository.repository_name }}', '{{ file.stored_filename }}')" style="font-weight: bold;">View</button>
+                        <button onclick="downloadFile('{{ repository.repository_name }}', '{{ file.stored_filename }}', '{{ file.original_filename }}')" style="background-color: green; font-weight: bold;">Download</button>
+                        <button onclick="deleteFile('{{ repository.repository_name }}', '{{ file.stored_filename }}', '{{ file.original_filename }}')" style="background-color: red; font-weight: bold;">Delete</button>
                     </div>
                 </div>
                 {% endfor %}
@@ -165,6 +168,10 @@
                     }
                 });
             }
+        }
+
+        function downloadFile(repository_name, stored_filename, original_filename) {
+            window.location.href = `/download_file/${repository_name}/${stored_filename}`;
         }
 
         
