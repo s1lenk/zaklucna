@@ -390,15 +390,29 @@ def add_friend(add_friend_username):
         return redirect(url_for('login'))
     
     try:
+        current_username = session['username']
         added_friend_exist = user_table.get(User.username == add_friend_username)
 
         if not added_friend_exist:
             return jsonify({'success': False, 'error': f'Could not find user {add_friend_username} to add them as a friend'})
         
-        friends = user_table.get('friends', [])
-        friends.append(add_friend_username)
+        if current_username == added_friend_exist:
+            return jsonify({'success': False, 'error': 'You cannot add yourself as a friend!'})
         
-        return jsonify({'success': True})
+        current_user = user_table.get(User.username == current_username)
+        if not current_user:
+            return jsonify({'success': False, 'error': 'Current user not found'})
+
+        friends = user_table.get('friends', [])
+
+        if add_friend_username in friends:
+            return jsonify({'success': False, 'error': f'{add_friend_username} is already your friend'})
+        
+        friends.append(add_friend_username)
+
+        user_table.update({'friends': friends}, (User.username == current_username))
+        
+        return jsonify({'success': True, 'message': f'{add_friend_username} has been added as a friend'})
 
     except Exception as e:
         print(f"Error adding {add_friend_username} as friend: {str(e)}")
