@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session, request, jsonify
+from flask import Flask, render_template, redirect, url_for, session, request, jsonify, send_file
 from tinydb import TinyDB, Query
 from datetime import datetime
 import os
@@ -341,6 +341,42 @@ def delete_file():
     except Exception as e:
         print(f"Error deleting file: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occurred while trying to delete the file'})
+
+@app.route('/download_file/<repository_name>/<stored_filename>', methods=['POST'])
+def download_file(repository_name, stored_filename):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    try:
+        username = session['username']
+        repository = repository_db.get((User.user == username) & (User.user == repository_name))
+
+        if not repository:
+            return jsonify({'success': False, 'error': 'Could not find repository'})
+        
+        file_info = None
+        for file in repository.get('files', []):
+            if file['stored_filename'] == stored_filename:
+                file_info = file
+                break
+
+        if not file_info:
+            return jsonify({'success': False, 'error': 'File not found'})
+        
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], stored_filename)
+
+        if not os.path.exists(file_path):
+            return jsonify({'success': False, 'error': 'The path to the file does not exist'})
+        
+        return send_file(
+            file_path,
+            as_attachment=True,
+            download_name=file_info['original_filename']
+        )
+
+    except Exception as e:
+        print(f"Error downloading file: {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occured while trying to download the file'})
 
 
 if __name__ == "__main__":
