@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import requests
 import uuid
+import re
 
 app = Flask(__name__)
 app.secret_key = "holou_nit_skong_jvelin"
@@ -103,7 +104,8 @@ def search_for_user():
         searched_username = request.form['searched_username']
         # current_username = session['username']
 
-        search_username_result = user_table.search(User.username.contains)
+        searched_username_pattern = f".*{searched_username}.*"
+        search_username_result = user_table.search(User.username.matches(searched_username_pattern, flags=re.IGNORECASE))
         
         if search_username_result:
             user_data = []
