@@ -119,7 +119,7 @@
 
                 <div class="button-container">
                     <button onclick="window.location.href='/view_repository/{{ repository.repository_name }}'">Back to Repository</button>
-                    <button onclick="downloadFile('{{ repository.repository_name }}', '{{ file.stored_filename }}', '{{ file.original_filename }}')">Download</button>
+                    <button onclick="downloadFile('{{ repository.repository_name }}', '{{ file.stored_filename }}')">Download</button>
                     <button class="delete-btn" onclick="deleteFile('{{ repository.repository_name }}', '{{ file_info.stored_filename }}', '{{ file_info.original_filename }}')">Delete File</button>
                 </div>
             </div>
