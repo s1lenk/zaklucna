@@ -342,14 +342,14 @@ def delete_file():
         print(f"Error deleting file: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occurred while trying to delete the file'})
 
-@app.route('/download_file/<repository_name>/<stored_filename>', methods=['POST'])
+@app.route('/download_file/<repository_name>/<stored_filename>', methods=['POST', 'GET'])
 def download_file(repository_name, stored_filename):
     if 'username' not in session:
         return redirect(url_for('login'))
     
     try:
         username = session['username']
-        repository = repository_db.get((User.user == username) & (User.user == repository_name))
+        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
 
         if not repository:
             return jsonify({'success': False, 'error': 'Could not find repository'})
@@ -370,6 +370,7 @@ def download_file(repository_name, stored_filename):
         
         return send_file(
             file_path,
+            mimetype=None,
             as_attachment=True,
             download_name=file_info['original_filename']
         )

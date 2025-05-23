@@ -123,7 +123,7 @@
                         alert('File successfully uploaded!');
                         window.location.reload();
                     } else {
-                        errorMessage.textContent = repsonse.error;
+                        errorMessage.textContent = response.error;
                         errorMessage.style.display = 'block';
                     }
                 },
@@ -170,7 +170,7 @@
             }
         }
 
-        function downloadFile(repository_name, stored_filename, original_filename) {
+        function downloadFile(repository_name, stored_filename) {
             window.location.href = `/download_file/${repository_name}/${stored_filename}`;
         }
 
