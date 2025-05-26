@@ -91,6 +91,14 @@ def account_settings():
     return render_template('account_settings.html')
 
 
+@app.route('/change_password')
+def change_password():
+    if 'username' not in session:
+        return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    return render_template('change_password.html')
+
+
 @app.route('/community_page', methods=['GET'])
 def community_page():
     if 'username' not in session:
@@ -385,7 +393,7 @@ def download_file(repository_name, stored_filename):
         return jsonify({'success': False, 'error': 'An error occured while trying to download the file'})
     
 
-@app.route('/add_friend')
+@app.route('/add_friend', methods=['POST'])
 def add_friend():
     if 'username' not in session:
         return redirect(url_for('login'))

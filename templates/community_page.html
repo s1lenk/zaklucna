@@ -145,8 +145,17 @@
                 success: function(response) {
                     if (response.success) {
                         alert('Added ' + add_friend_username + ' as friend!');
+                    } else {
+                        errorMessage.textContent = response.error;
+                        errorMessage.style.display = 'block';
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error('error details: ', xhr.responseText);
+                    errorMessage.textContent = 'Something went wrong. Try again.';
+                    errorMessage.style.display = 'block';  
                 }
+
             })
             // alert('adding ' + add_friend_username + ' as friend');
             // window.location.href=`/add_friend/${add_friend_username}`;
