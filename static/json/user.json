@@ -1,1 +1,38 @@
-{"user": {"1": {"username": "andrej", "password": "123", "friends": ["niko", "Nejc", "nejc"]}, "2": {"username": "niko", "password": "123", "friends": []}, "3": {"username": "Nejc", "password": "123", "friends": ["andrej"]}, "4": {"username": "nejc", "password": "123", "friends": []}, "5": {"username": "Nejc_but_worse", "password": "123", "friends": ["nejc", "Nejc"]}}}
+{
+  "user": {
+    "1": {
+      "username": "andrej",
+      "password": "123",
+      "friends": [
+        "niko",
+        "Nejc",
+        "nejc"
+      ]
+    },
+    "2": {
+      "username": "niko",
+      "password": "123",
+      "friends": []
+    },
+    "3": {
+      "username": "Nejc",
+      "password": "123",
+      "friends": [
+        "andrej"
+      ]
+    },
+    "4": {
+      "username": "nejc",
+      "password": "123",
+      "friends": []
+    },
+    "5": {
+      "username": "Nejc_but_worse",
+      "password": "123",
+      "friends": [
+        "nejc",
+        "Nejc"
+      ]
+    }
+  }
+}
