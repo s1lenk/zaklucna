@@ -275,7 +275,7 @@ def view_file(repository_name, stored_filename):
     repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
 
     if not repository:
-        return redirect(url_for('mainPage'))
+        return redirect(url_for('view_repository'))
     
     # Find the file in the repository
     file_info = None
@@ -345,6 +345,7 @@ def delete_file():
         print(f"Error deleting file: {str(e)}")
         return jsonify({'success': False, 'error': 'An error occurred while trying to delete the file'})
 
+
 @app.route('/download_file/<repository_name>/<stored_filename>', methods=['POST', 'GET'])
 def download_file(repository_name, stored_filename):
     if 'username' not in session:
@@ -384,35 +385,37 @@ def download_file(repository_name, stored_filename):
         return jsonify({'success': False, 'error': 'An error occured while trying to download the file'})
     
 
-@app.route('/add_friend/<add_friend_username>')
-def add_friend(add_friend_username):
+@app.route('/add_friend')
+def add_friend():
     if 'username' not in session:
         return redirect(url_for('login'))
     
     try:
         current_username = session['username']
+        add_friend_username = request.form['add_friend_username']
         added_friend_exist = user_table.get(User.username == add_friend_username)
 
         if not added_friend_exist:
             return jsonify({'success': False, 'error': f'Could not find user {add_friend_username} to add them as a friend'})
         
-        if current_username == added_friend_exist:
+        if current_username == add_friend_username:
             return jsonify({'success': False, 'error': 'You cannot add yourself as a friend!'})
         
         current_user = user_table.get(User.username == current_username)
         if not current_user:
             return jsonify({'success': False, 'error': 'Current user not found'})
 
-        friends = user_table.get('friends', [])
+        friends = current_user.get('friends', [])
 
         if add_friend_username in friends:
             return jsonify({'success': False, 'error': f'{add_friend_username} is already your friend'})
         
+
         friends.append(add_friend_username)
 
         user_table.update({'friends': friends}, (User.username == current_username))
         
-        return jsonify({'success': True, 'message': f'{add_friend_username} has been added as a friend'})
+        return jsonify({'success': True})
 
     except Exception as e:
         print(f"Error adding {add_friend_username} as friend: {str(e)}")

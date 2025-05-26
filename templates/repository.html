@@ -59,7 +59,7 @@
                     <div class="file-info">
                         <strong>{{ file.original_filename }}</strong>
                         <div>Uploaded: {{ file.date_uploaded }}</div>
-                        <div>Size: {{ (file.file_size / 1024|round(2)) }} KB</div>
+                        <div>Size: {{ (file.file_size / 1024)|round(2) }} KB</div>
                     </div>
                     <div class="file-actions">
                         <button onclick="viewFile('{{ repository.repository_name }}', '{{ file.stored_filename }}')" style="font-weight: bold;">View</button>

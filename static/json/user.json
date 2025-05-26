@@ -3,10 +3,24 @@
     "1": {
       "username": "andrej",
       "password": "123",
-      "friends": []
+      "friends": [
+        "niko"
+      ]
     },
     "2": {
       "username": "niko",
+      "password": "123",
+      "friends": []
+    },
+    "3": {
+      "username": "Nejc",
+      "password": "123",
+      "friends": [
+        "andrej"
+      ]
+    },
+    "4": {
+      "username": "nejc",
       "password": "123",
       "friends": []
     }

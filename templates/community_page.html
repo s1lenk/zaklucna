@@ -134,8 +134,22 @@
         }
 
         function add_friend(add_friend_username) {
-            alert('adding ' + add_friend_username + ' as friend');
-            window.location.href=`/add_friend/${add_friend_username}`;
+
+            $.ajax({
+                url: '/add_friend',
+                type: 'POST',
+                data: {
+                    add_friend_username: add_friend_username
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        alert('Added ' + add_friend_username + ' as friend!');
+                    }
+                }
+            })
+            // alert('adding ' + add_friend_username + ' as friend');
+            // window.location.href=`/add_friend/${add_friend_username}`;
         }
 
         document.getElementById('search_user').addEventListener('keypress', function(e) {
