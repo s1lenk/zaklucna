@@ -97,7 +97,21 @@ def change_password():
         return jsonify({'success': False, 'error': 'Not logged in'})
     
     try:
-        pass
+        username = session['username']
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+        confirm_new_password = request.form['confirm_new_password']
+
+        current_password = user_table.get(User.username == old_password)
+
+        if not current_password:
+            return jsonify({'success': False, 'error': 'Old password does not match!'})
+        
+        if new_password != confirm_new_password:
+            return jsonify({'success': False, 'error': 'New password does not match confirme password!'})
+        
+
+
     except Exception as e:
         print(f"An error occured while trying to change password {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to change password!'})
