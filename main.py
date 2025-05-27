@@ -91,10 +91,17 @@ def account_settings():
     return render_template('account_settings.html')
 
 
-@app.route('/change_password')
+@app.route('/change_password', methods=['POST'])
 def change_password():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
+    
+    try:
+        pass
+    except Exception as e:
+        print(f"An error occured while trying to change password {str(e)}")
+        return jsonify({'success': False, 'error': 'An error occured while trying to change password!'})
+        
     
     return render_template('change_password.html')
 
