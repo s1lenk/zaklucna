@@ -54,7 +54,7 @@ pip install -r requirements.txt
 If the above command doesn't work, install the dependencies manually:
 
 ```bash
-pip install Flask tinydb
+pip install Flask tinydb gunicorn
 ```
 
 ### 5. Run the Application
@@ -69,6 +69,10 @@ The application will start and you should see output similar to:
 * Running on http://127.0.0.1:5000
 * Debug mode: on
 ```
+
+### OR... use gunicorn
+Gunicorn can be downloaded [here](https://gunicorn.org/)
+
 
 ### 6. Access the Application
 
