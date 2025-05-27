@@ -54,7 +54,7 @@ pip install -r requirements.txt
 If the above command doesn't work, install the dependencies manually:
 
 ```bash
-pip install Flask tinydb
+pip install Flask tinydb gunicorn
 ```
 
 ### 5. Run the Application
