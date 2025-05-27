@@ -91,38 +91,36 @@ def account_settings():
     return render_template('account_settings.html')
 
 
-@app.route('/change_password', methods=['POST'])
+@app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     if 'username' not in session:
         return jsonify({'success': False, 'error': 'Not logged in'})
     
-    try:
-        username = session['username']
-        old_password = request.form['old_password']
-        new_password = request.form['new_password']
-        confirm_new_password = request.form['confirm_new_password']
+    if request.method == 'POST':
+        try:
+            username = session['username']
+            old_password = request.form['old_password']
+            new_password = request.form['new_password']
+            confirm_new_password = request.form['confirm_new_password']
 
-        current_user_data = user_table.get((User.password == old_password) and (User.username == username))
+            current_user_data = user_table.get((User.password == old_password) and (User.username == username))
 
-        if not current_user_data:
-            return jsonify({'success': False, 'error': 'Old password does not match!'})
-        
-        if new_password != confirm_new_password:
-            return jsonify({'success': False, 'error': 'New password does not match confirme password!'})
-        
-        password = current_user_data.get('password')
+            if not current_user_data:
+                return jsonify({'success': False, 'error': 'Old password does not match!'})
+            
+            if new_password != confirm_new_password:
+                return jsonify({'success': False, 'error': 'New password does not match confirme password!'})
 
-        user_table.update({'password': new_password},
-                          (User.username == username)) 
+            user_table.update({'password': new_password},
+                            (User.username == username)) 
+            
+            return jsonify({'success': True, 'message': 'You password has been changed'})
         
-        return jsonify({'success': True, 'message': 'You password has been changed'})
-    
-    except Exception as e:
-        print(f"An error occured while trying to change password {str(e)}")
-        return jsonify({'success': False, 'error': 'An error occured while trying to change password!'})
-        
-    
-    return render_template('change_password.html')
+        except Exception as e:
+            print(f"An error occured while trying to change password {str(e)}")
+            return jsonify({'success': False, 'error': 'An error occured while trying to change password!'})
+    else:
+        return render_template('change_password.html')
 
 
 @app.route('/community_page', methods=['GET'])
