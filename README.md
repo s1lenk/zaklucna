@@ -70,6 +70,10 @@ The application will start and you should see output similar to:
 * Debug mode: on
 ```
 
+### OR... use gunicorn
+Gunicorn can be downloaded [here](https://gunicorn.org/)
+
+
 ### 6. Access the Application
 
 Open your web browser and navigate to:
