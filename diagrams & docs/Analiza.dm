@@ -35,5 +35,8 @@ Priložnosti:
 Grožnje:
 - Večje platforme lahko kopirajo našo idejo
 
+Financiranje:
+- letna naročnina s katero si pridobiš več prostora in druge kvalitete
+
 
 
