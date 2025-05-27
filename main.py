@@ -102,16 +102,21 @@ def change_password():
         new_password = request.form['new_password']
         confirm_new_password = request.form['confirm_new_password']
 
-        current_password = user_table.get(User.username == old_password)
+        current_user_data = user_table.get((User.password == old_password) and (User.username == username))
 
-        if not current_password:
+        if not current_user_data:
             return jsonify({'success': False, 'error': 'Old password does not match!'})
         
         if new_password != confirm_new_password:
             return jsonify({'success': False, 'error': 'New password does not match confirme password!'})
         
+        password = current_user_data.get('password')
 
-
+        user_table.update({'password': new_password},
+                          (User.username == username)) 
+        
+        return jsonify({'success': True, 'message': 'You password has been changed'})
+    
     except Exception as e:
         print(f"An error occured while trying to change password {str(e)}")
         return jsonify({'success': False, 'error': 'An error occured while trying to change password!'})
@@ -178,7 +183,7 @@ def create_repository():
             if bc in repository_name:
                 return jsonify({'success': False, 'error': 'The name of the repository cannot include special characters'})
 
-        existing_repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+        existing_repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
         if existing_repository:
             return jsonify({'success': False, 'error': 'Repository already exists'})
@@ -203,7 +208,7 @@ def view_repository(repository_name):
         return jsonify({'success': False, 'error': 'Not logged in'})
     
     username = session['username']
-    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+    repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
     if not repository:
         return redirect(url_for("mainPage"))
@@ -220,12 +225,12 @@ def delete_repository():
         username = session['username']
         repository_name = request.form['repository_name']
 
-        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+        repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
         if not repository:
             return jsonify({'success': False, 'error': 'Could not delete repository'})
         
-        repository_db.remove((User.user == username) & (User.repository_name == repository_name))
+        repository_db.remove((User.user == username) and (User.repository_name == repository_name))
 
         return jsonify({'success': True})
 
@@ -243,7 +248,7 @@ def add_file():
         repository_name = request.form['repository_name']
         username = session['username']
 
-        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+        repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
         if not repository:
             return jsonify ({'success': False, 'error': 'Repository not found'})
@@ -283,7 +288,7 @@ def add_file():
             files.append(new_file)
 
             repository_db.update({'files': files},
-                                 (User.user == username) & (User.repository_name == repository_name))
+                                 (User.user == username) and (User.repository_name == repository_name))
             
             return jsonify({'success': True})
         else:
@@ -301,7 +306,7 @@ def view_file(repository_name, stored_filename):
         return redirect(url_for('login'))
     
     username = session['username']
-    repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+    repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
     if not repository:
         return redirect(url_for('view_repository'))
@@ -341,7 +346,7 @@ def delete_file():
         username = session['username']
         repository_name = request.form['repository_name']
         stored_filename = request.form['stored_filename']
-        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+        repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
         print(repository_name)
 
@@ -366,7 +371,7 @@ def delete_file():
             os.remove(file_path)
 
         repository_db.update({'files': updated_files},
-                             (User.user == username) & (User.repository_name == repository_name))
+                             (User.user == username) and (User.repository_name == repository_name))
         
         return jsonify({'success': True})
 
@@ -382,7 +387,7 @@ def download_file(repository_name, stored_filename):
     
     try:
         username = session['username']
-        repository = repository_db.get((User.user == username) & (User.repository_name == repository_name))
+        repository = repository_db.get((User.user == username) and (User.repository_name == repository_name))
 
         if not repository:
             return jsonify({'success': False, 'error': 'Could not find repository'})
